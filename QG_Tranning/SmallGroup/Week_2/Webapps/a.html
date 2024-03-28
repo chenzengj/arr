@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- GET请求 -->
+<form action="http://localhost:8080/ServletTest1/demo" method="GET">
+    <input type="text" name="data">
+    <input type="submit" value="发送GET请求">
+</form>
+
+<!-- POST请求 -->
+<form action="http://localhost:8080/ServletTest1/demo" method="POST">
+    <input type="text" name="data">
+    <input type="submit" value="发送POST请求">
+</form>
+<a href="http://localhost:8080/ServletTest1/demo">发送GET请求</a>
+<button onclick="window.location.href='http://localhost:8080/ServletTest1/demo'">发送GET请求</button>
+</body>
+</html>
