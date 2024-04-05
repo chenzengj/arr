@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理系统</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            loadStudentList();
+
+            // 添加学生
+            $('#add-student-form').submit(function(event) {
+                event.preventDefault();
+                var name = $('#name').val();
+                var age = $('#age').val();
+                $.ajax({
+                    url: 'http://localhost:8080/Third_Week_war/students',
+                    type: 'POST',
+                    dataType: 'json',
+
+                    data: JSON.stringify({ name: name, age: age }),
+                    contentType: 'application/json',
+                    success: function(data) {
+                        if (data.success) {
+                            alert('添加学生成功');
+                            loadStudentList();
+                        } else {
+                            alert('添加学生失败: ' + data.message);
+                        }
+                    },
+                    error: function() {
+                        alert('添加学生失败');
+                    }
+                });
+            });
+        });
+
+        function loadStudentList() {
+            $.ajax({
+                url: 'http://localhost:8080/Third_Week_war/students',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var studentList = $('#student-list');
+                    studentList.empty();
+                    $.each(data, function(index, student) {
+                        studentList.append('<li>' +student.name+' (' + student.age + '岁) </li>');
+                    });
+                },
+                error: function() {
+                    alert('获取学生列表失败');
+                }
+            });
+        }
+
+        // function deleteStudent(id) {
+        //     if (confirm('确定要删除这个学生吗?')) {
+        //         $.ajax({
+        //             url: 'http://localhost:8080/Third_Week_war/students' + id,
+        //             type: 'DELETE',
+        //             dataType: 'json',
+        //
+        //             success: function(data) {
+        //                 if (data.success) {
+        //                     alert('删除学生成功');
+        //                     loadStudentList();
+        //                 } else {
+        //                     alert('删除学生失败: ' + data.message);
+        //                 }
+        //             },
+        //             error: function() {
+        //                 alert('删除学生失败');
+        //             }
+        //         });
+        //     }
+        //}
+    </script>
+</head>
+<body>
+<h1>学生管理系统</h1>
+<ul id="student-list"></ul>
+<form id="add-student-form">
+    <input type="text" id="name" placeholder="姓名" required>
+    <input type="number" id="age" placeholder="年龄" required>
+    <button type="submit">添加学生</button>
+</form>
+</body>
+</html>
