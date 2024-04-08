@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#include<Windows.h>
+#include<string.h>
 //二叉排序树节点定义
 typedef struct Node {
     int data;
